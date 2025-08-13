@@ -48,14 +48,14 @@ def pr():
     mult2 = int(n2)
     mult3 = int(n3)
     pr = mult1 * mult2 * mult3
-    m2['text'] = f"{n1} * {n2} * {n3} = {str(pr)}"
+    m1['text'] = f"{n1} * {n2} * {n3} = {str(pr)}"
         
     answer = mb.askretrycancel(title="Вопрос", message="Продолжить вычисления?")
     if answer:
         e1.delete(0, END)
         e2.delete(0, END)
         e3.delete(0, END)
-        m2['text'] = ""
+        m1['text'] = ""
     else:
         window.destroy()
 
@@ -75,6 +75,4 @@ b2 = Button(text="Умножить три числа", command=pr)
 b2.pack()
 m1 = Label(height=3)
 m1.pack()
-m2 = Label(height=3)
-m2.pack()
 window.mainloop()
