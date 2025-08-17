@@ -1,7 +1,10 @@
 from tkinter import *
 from tkinter import messagebox as mb
 
-def book_seat(event=None): # Бронирование места
+def book_seat(event=None):
+    """
+    Эта функция бронирует место
+    """
     s = seat_entry.get().upper()
     try:
         if seats[s] == "свободно":
@@ -13,7 +16,10 @@ def book_seat(event=None): # Бронирование места
     except KeyError:
         mb.showerror("Ошибка", f"Место {s} не существует.")
 
-def cancel_booking(event=None): # Отмена бронирования места
+def cancel_booking(event=None):
+    """
+    Эта функция отменяет бронирование места (освобождает забронированное)
+    """
     s = cancel_seat_entry.get().upper()
     try:
         if seats[s] == "забронировано":
@@ -25,7 +31,10 @@ def cancel_booking(event=None): # Отмена бронирования мест
     except KeyError:
         mb.showerror("Ошибка", f"Место {s} не существует.")
 
-def update_canvas(): # Обновление виджета со свободными и забронированными местами
+def update_canvas():
+    """
+    Эта функция обновляет виджет со схемой мест
+    """
     canvas.delete("all")
     for i, (seat, status) in enumerate(seats.items()):
         x = i * 40 + 20
