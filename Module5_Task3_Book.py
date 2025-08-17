@@ -1,8 +1,8 @@
 from tkinter import *
 from tkinter import messagebox as mb
 
-def book_seat(event=None):
-    s = seat_entry.get()
+def book_seat(event=None): # Бронирование места
+    s = seat_entry.get().upper()
     try:
         if seats[s] == "свободно":
             seats[s] = "забронировано"
@@ -13,8 +13,8 @@ def book_seat(event=None):
     except KeyError:
         mb.showerror("Ошибка", f"Место {s} не существует.")
 
-def cancel_booking(event=None):
-    s = cancel_seat_entry.get()
+def cancel_booking(event=None): # Отмена бронирования места
+    s = cancel_seat_entry.get().upper()
     try:
         if seats[s] == "забронировано":
             seats[s] = "свободно"
@@ -25,7 +25,7 @@ def cancel_booking(event=None):
     except KeyError:
         mb.showerror("Ошибка", f"Место {s} не существует.")
 
-def update_canvas():
+def update_canvas(): # Обновление виджета со свободными и забронированными местами
     canvas.delete("all")
     for i, (seat, status) in enumerate(seats.items()):
         x = i * 40 + 20
@@ -33,17 +33,28 @@ def update_canvas():
         color = "green" if status == "свободно" else "red"
         canvas.create_rectangle(x, y, x+30, y+30, fill=color)
         canvas.create_text(x+15, y+15, text=seat)
-
+        
+# Создание основного окна
 window = Tk()
 window.title("Бронирование мест")
-window.geometry("400x250")
+window.geometry("400x320")
 
-canvas = Canvas(width=400, height=60)
+# Создание виджета со схемой мест
+canvas = Canvas(width=400, height=50)
 canvas.pack(pady=10)
 
 seats = {f"Б{i}": "свободно" for i in range(1, 10)}
 update_canvas()
 
+# Добавление легенды
+canvas1 = Canvas(width=400, height=50)
+canvas1.pack(pady=10)
+canvas1.create_rectangle(10, 2, 40, 32, fill="green")
+canvas1.create_text(80, 17, text="Свободно")
+canvas1.create_rectangle(160, 2, 190, 32, fill="red")
+canvas1.create_text(245, 17, text="Забронировано")
+
+# Добавление поля ввода и кнопки для бронирования
 seat_entry = Entry()
 seat_entry.pack(pady=5)
 seat_entry.focus()
@@ -52,9 +63,8 @@ Button(text="Забронировать место", command=book_seat).pack(pad
 
 # Добавление поля ввода и кнопки для отмены бронирования
 cancel_seat_entry = Entry()
-cancel_seat_entry.pack(pady=5)
+cancel_seat_entry.pack(pady=10)
 cancel_seat_entry.bind("<Return>", cancel_booking)
-
-Button(text="Отменить бронь", command=cancel_booking).pack(pady=5)
+Button(text="Отменить бронь", command=cancel_booking).pack(pady=10)
 
 window.mainloop()
