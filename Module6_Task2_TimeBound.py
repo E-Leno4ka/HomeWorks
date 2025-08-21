@@ -15,6 +15,9 @@ def set():
         try:
             hour = int(rem.split(":")[0])
             minute = int(rem.split(":")[1])
+            if hour < 0 or hour > 23 or minute < 0 or minute > 59:
+                mb.showerror("Ошибка", "Некорректно задано время! \nВведите \nчасы от 00 до 23 \nминуты от 00 до 59")
+                return
             now = datetime.datetime.now()
             dt = now.replace(hour=hour, minute=minute, second=0, microsecond=0)
             t = dt.timestamp()
