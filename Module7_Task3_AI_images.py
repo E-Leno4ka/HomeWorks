@@ -12,11 +12,18 @@ tabs = []
 txt_prompt = ""
 
 def get_prompt():
+    '''
+    Эта функция получает текст из поля ввода и
+    переводит его с русского на английский язык
+    '''
     global txt_prompt
     translator = Translator(from_lang="ru", to_lang="en")
     txt_prompt = translator.translate(user_input.get())
 
 async def main():
+    '''
+    Отправляет ИИ текстовый запрос, получает ссылку на изображение.
+    '''
     client = AsyncClient()
 
     get_prompt()
@@ -31,6 +38,11 @@ async def main():
     return image_url
 
 def show_image():
+    '''
+    Эта фнукция запрашивает данные по ссылке,
+    преобразует их в изображение
+    и выводит на новой вкладке в отдельном окне
+    '''
     image_url = asyncio.run(main())
 
     if image_url:
@@ -57,8 +69,7 @@ def show_image():
 
 def clear_tabs():
     '''
-    Эта функция "забывает" открытые вкладки окна "Изображения пёсиков"
-    и удаляет кнопку "Очистить вкладки" с основного окна.
+    Эта функция "забывает" открытые вкладки окна "Изображения".
     '''
     global tabs
     global button2
